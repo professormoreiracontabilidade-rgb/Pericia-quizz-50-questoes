@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Trilha de Perícia Contábil</title>
+<style>
+:root{
+  --azul:#0b2d5c;
+  --azul2:#123f7a;
+  --rosa:#ff5fa2;
+  --rosa2:#ffd6e8;
+  --verde:#14a66a;
+  --verde2:#d9fbe9;
+  --fundo:#f4f7fb;
+  --texto:#1d2433;
+  --amarelo:#fff4c2;
+  --vermelho:#d93636;
+  --cinza:#e9eef7;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(180deg,#eaf1ff,#fff);color:var(--texto)}
+.app{max-width:520px;margin:0 auto;min-height:100vh;padding:14px 14px 95px}
+.header{background:var(--azul);color:white;border-radius:20px;padding:16px;text-align:center;box-shadow:0 8px 20px rgba(0,0,0,.18);margin-bottom:14px}
+.header h1{font-size:22px;margin:0 0 6px}.header p{font-size:14px;margin:0;opacity:.95}
+.card{background:white;border-radius:22px;padding:18px;box-shadow:0 8px 24px rgba(11,45,92,.14);margin:12px 0;border:1px solid #dce6f5}
+.center{text-align:center}.hidden{display:none!important}.badge{display:inline-block;background:var(--amarelo);color:#604900;padding:7px 11px;border-radius:999px;font-weight:bold;font-size:13px;margin:4px}
+.btn{border:none;border-radius:16px;padding:14px 18px;margin:6px 3px;font-size:16px;font-weight:bold;cursor:pointer;box-shadow:0 5px 12px rgba(0,0,0,.16)}
+.btn-primary{background:var(--azul);color:white}.btn-green{background:var(--verde);color:white}.btn-pink{background:var(--rosa);color:white}.btn-red{background:var(--vermelho);color:white}.btn-light{background:#eef4ff;color:var(--azul)}
+.input{width:100%;font-size:18px;padding:14px;border:2px solid #c7d6ef;border-radius:16px;margin:12px 0}
+.menu-grid{display:grid;grid-template-columns:1fr;gap:12px}.menu-card{padding:18px;border-radius:20px;color:white;text-align:left;min-height:120px;display:flex;flex-direction:column;justify-content:space-between}.menu-card h2{margin:0;font-size:22px}.menu-card p{margin:6px 0 0;font-size:15px}.m1{background:linear-gradient(135deg,var(--rosa),#c8307d)}.m2{background:linear-gradient(135deg,var(--verde),#087645)}
+.progress{height:12px;background:#dce6f5;border-radius:999px;overflow:hidden;margin:10px 0}.bar{height:100%;width:0;background:linear-gradient(90deg,var(--rosa),var(--verde));transition:.25s}
+.flash-wrap{perspective:1000px}.flash{height:360px;position:relative;transform-style:preserve-3d;transition:transform .5s;cursor:pointer}.flash.flipped{transform:rotateY(180deg)}.face{position:absolute;inset:0;border-radius:24px;padding:22px;backface-visibility:hidden;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;box-shadow:0 8px 22px rgba(0,0,0,.2)}
+.front{background:linear-gradient(160deg,var(--rosa),#ff8fc1);color:white}.back{background:linear-gradient(160deg,var(--verde),#52d993);color:white;transform:rotateY(180deg)}
+.face small{font-size:14px;opacity:.92}.face h2{font-size:24px;margin:10px 0}.face p{font-size:19px;line-height:1.45;margin:0}.tap{position:absolute;bottom:18px;font-size:13px;background:rgba(255,255,255,.22);padding:8px 12px;border-radius:999px}
+.q-title{font-size:18px;font-weight:bold;color:var(--azul);margin-bottom:8px}.question{font-size:19px;line-height:1.45;font-weight:bold}.option{width:100%;text-align:left;background:#f4f7fb;border:2px solid #dce6f5;border-radius:16px;padding:13px;margin:8px 0;font-size:16px;cursor:pointer}.option.correct{background:#d9fbe9;border-color:var(--verde)}.option.wrong{background:#ffe1e1;border-color:var(--vermelho)}.explanation{background:#f6fff9;border-left:6px solid var(--verde);border-radius:16px;padding:14px;font-size:17px;line-height:1.45}.mini{font-size:14px;color:#526070}.footer-nav{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid #dce6f5;padding:10px;box-shadow:0 -5px 18px rgba(0,0,0,.12)}.footer-inner{max-width:520px;margin:0 auto;display:flex;gap:8px;justify-content:center}.footer-inner .btn{flex:1;padding:12px 8px;font-size:14px}.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}.stat{background:#eef4ff;border-radius:14px;padding:12px;text-align:center;font-weight:bold;color:var(--azul)}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header"><h1>Curso de Contabilidade Professor Moreira</h1><p>Trilha de Perícia Contábil • Flashcards + Quiz</p></div>
+
+  <section id="home" class="card center">
+    <h2>Perícia Contábil</h2>
+    <p><b>Estude a teoria, vire os flashcards e depois responda 50 questões.</b></p>
+    <input id="nome" class="input" placeholder="Digite seu nome" />
+    <button class="btn btn-green" onclick="startApp()">Começar Trilha</button>
+    <p class="mini">WhatsApp: (61) 98532-3574</p>
+  </section>
+
+  <section id="menu" class="hidden">
+    <div class="card center"><h2 id="saudacao">Bem-vindo!</h2><span class="badge" id="resumoProgresso">Progresso salvo automaticamente</span></div>
+    <div class="menu-grid">
+      <div class="menu-card m1" onclick="openFlash()"><div><h2>🌸 Flashcards</h2><p>Frente rosa e verso verde com os principais pontos de Perícia.</p></div><button class="btn btn-light">Estudar teoria</button></div>
+      <div class="menu-card m2" onclick="openQuiz()"><div><h2>✅ Quiz 50 questões</h2><p>Uma tela com questão e a próxima com explicação comentada.</p></div><button class="btn btn-light">Responder quiz</button></div>
+    </div>
+  </section>
+
+  <section id="flashSec" class="hidden">
+    <div class="card"><div class="q-title">Flashcard <span id="flashNum"></span>/<span id="flashTotal"></span></div><div class="progress"><div id="flashBar" class="bar"></div></div></div>
+    <div class="flash-wrap"><div id="flash" class="flash" onclick="flipFlash()"><div class="face front"><small>FRENTE</small><h2 id="flashFront"></h2><span class="tap">Toque para virar</span></div><div class="face back"><small>VERSO</small><p id="flashBack"></p><span class="tap">Toque para voltar</span></div></div></div>
+  </section>
+
+  <section id="quizSec" class="hidden">
+    <div class="card"><div class="q-title">Questão <span id="qNum"></span>/50</div><div class="progress"><div id="quizBar" class="bar"></div></div><div class="stats"><div class="stat">✅ <span id="acertos">0</span></div><div class="stat">❌ <span id="erros">0</span></div><div class="stat">📌 <span id="restantes">50</span></div></div></div>
+    <div id="questionCard" class="card"><div class="question" id="questionText"></div><div id="options"></div></div>
+    <div id="explainCard" class="card hidden"><h2>Explicação</h2><div class="explanation" id="explainText"></div><button class="btn btn-green" onclick="nextQuestion()">Próxima questão ➜</button></div>
+  </section>
+</div>
+
+<div class="footer-nav hidden" id="nav"><div class="footer-inner"><button class="btn btn-light" onclick="goMenu()">🏠 Menu</button><button class="btn btn-pink" onclick="prevItem()">⬅ Voltar</button><button class="btn btn-primary" onclick="nextItem()">Avançar ➡</button><button class="btn btn-red" onclick="resetCurrent()">🔄 Reiniciar</button></div></div>
+
+<script>
+const WHATS='5561985323574';
+let aluno=localStorage.getItem('aluno_pericia')||'';
+let mode='menu'; let flashIndex=Number(localStorage.getItem('flash_pericia')||0); let qIndex=Number(localStorage.getItem('quiz_pericia')||0); let ac=Number(localStorage.getItem('ac_pericia')||0); let er=Number(localStorage.getItem('er_pericia')||0); let answered=false;
+
+const flashcards=[
+{f:'Perícia Contábil',b:'É atividade técnico-científica destinada à produção de prova, auxiliando a solução de conflitos que envolvem matéria contábil, patrimonial, financeira ou tributária.'},
+{f:'Auditoria x Perícia',b:'Auditoria emite opinião sobre demonstrações e controles. Perícia produz prova técnica para esclarecer controvérsia.'},
+{f:'Perito do Juízo',b:'É nomeado pelo magistrado e atua como auxiliar da Justiça. Deve agir com independência, imparcialidade e zelo.'},
+{f:'Assistente Técnico',b:'É indicado e contratado por uma das partes. Atua para auxiliar tecnicamente a parte e elabora parecer pericial.'},
+{f:'Laudo Pericial',b:'Documento técnico elaborado pelo perito do juízo, contendo metodologia, respostas aos quesitos e conclusão técnica.'},
+{f:'Parecer Pericial',b:'Documento elaborado pelo assistente técnico, concordando, divergindo ou complementando o laudo pericial.'},
+{f:'Perito Arbitral',b:'Atua em procedimento de arbitragem, nomeado no âmbito da câmara ou tribunal arbitral.'},
+{f:'Perito Oficial',b:'Servidor público investido legalmente na função pericial, como ocorre em órgãos oficiais de perícia.'},
+{f:'CRC',b:'Registro regular no Conselho Regional de Contabilidade é condição essencial para atuação do contador como perito contábil.'},
+{f:'CNPC',b:'O Cadastro Nacional de Peritos Contábeis é preferencial e fortalece a qualificação, mas não é requisito absoluto para nomeação judicial.'},
+{f:'Certidão de Regularidade',b:'Deve ser anexada na primeira manifestação nos autos e também na apresentação do laudo ou parecer.'},
+{f:'Impedimento',b:'Decorre de fatos objetivos e concretos que comprometem a atuação do perito, como parentesco ou interesse direto na causa.'},
+{f:'Suspeição',b:'Decorre de situações subjetivas ligadas à parcialidade, como amizade íntima, inimizade ou recebimento de presentes.'},
+{f:'Macete',b:'Impedimento = fato objetivo. Suspeição = fato subjetivo ou relação pessoal.'},
+{f:'Zelo Profissional',b:'Envolve cuidado com prazos, documentos, sigilo, urbanidade, atualização técnica e qualidade do trabalho.'},
+{f:'Responsabilidade',b:'O perito que assina o laudo responde pessoalmente pelo trabalho, inclusive por falhas de auxiliares.'},
+{f:'Planejamento',b:'Serve para definir metodologia, prazo, recursos, riscos e honorários da perícia.'},
+{f:'Honorários',b:'Devem considerar complexidade, tempo, volume documental, qualificação técnica e relevância do trabalho.'},
+{f:'Adiantamento',b:'O perito do juízo pode requerer levantamento de até 50% dos honorários depositados para custear despesas.'},
+{f:'Recebimento Direto',b:'É proibido receber valores diretamente das partes litigantes. O pagamento deve ocorrer nos autos, via depósito judicial.'},
+{f:'Trabalho Deficiente',b:'Se o laudo for inconclusivo ou deficiente, o juiz pode reduzir ou determinar devolução dos honorários.'},
+{f:'Quesitos',b:'São perguntas formuladas pelo juiz ou pelas partes para serem respondidas tecnicamente pelo perito.'},
+{f:'Quesitos Suplementares',b:'São perguntas adicionais apresentadas posteriormente para esclarecer ou aprofundar pontos do laudo.'},
+{f:'Esclarecimentos',b:'Após o laudo, o perito pode ser chamado a esclarecer pontos, sem necessariamente realizar nova perícia.'},
+{f:'Palavras Ofensivas',b:'O perito pode requerer ao juiz que determine o riscamento de expressões ofensivas nos autos.'},
+{f:'Prova Pericial',b:'É meio de prova usado quando a solução do conflito depende de conhecimento técnico ou científico.'},
+{f:'Independência',b:'O perito deve atuar livre de interesses, pressões ou vínculos que comprometam sua conclusão técnica.'},
+{f:'Sigilo',b:'O perito deve guardar sigilo sobre informações obtidas no exercício profissional.'},
+{f:'Imparcialidade',b:'Especialmente o perito do juízo deve manter postura neutra, técnica e equidistante das partes.'},
+{f:'Essência para prova',b:'Perícia não é auditoria. Perícia produz prova. Auditoria emite opinião.'}
+];
+
+const quiz=[
+{q:'A principal finalidade da perícia contábil é:',o:['Emitir opinião sobre demonstrações financeiras','Produzir prova técnica para auxiliar a solução de controvérsia','Fazer escrituração contábil','Substituir a decisão do juiz'],a:1,e:'A perícia contábil produz prova técnica. Ela não substitui o juiz, mas fornece elementos contábeis para a decisão.'},
+{q:'A auditoria contábil diferencia-se da perícia porque:',o:['Sempre ocorre dentro de processo judicial','Tem por objetivo principal emitir opinião técnica sobre informações contábeis','É feita apenas por assistente técnico','Não utiliza normas profissionais'],a:1,e:'A auditoria verifica registros e demonstrações para emitir opinião. A perícia atua como prova técnica em controvérsia.'},
+{q:'O perito nomeado pelo juiz é denominado:',o:['Assistente técnico','Perito do juízo','Perito contratado','Auditor independente'],a:1,e:'Perito do juízo é o profissional nomeado pelo magistrado para atuar como auxiliar da Justiça.'},
+{q:'O profissional contratado por uma das partes para acompanhar a perícia é chamado de:',o:['Perito oficial','Perito arbitral','Assistente técnico','Juiz técnico'],a:2,e:'O assistente técnico é indicado pela parte e elabora parecer pericial.'},
+{q:'O documento elaborado pelo perito do juízo é chamado de:',o:['Parecer pericial','Laudo pericial','Relatório de auditoria','Balancete pericial'],a:1,e:'O laudo pericial contábil é elaborado pelo perito do juízo.'},
+{q:'O parecer pericial contábil é elaborado pelo:',o:['Juiz','Auditor independente','Assistente técnico','Escrivão'],a:2,e:'O assistente técnico apresenta parecer, podendo concordar ou divergir do laudo.'},
+{q:'Para atuar como perito contábil, o profissional deve ser:',o:['Administrador com experiência','Economista sem registro','Contador regularmente registrado no CRC','Advogado especialista'],a:2,e:'A perícia contábil exige contador com registro regular no Conselho Regional de Contabilidade.'},
+{q:'A inscrição no CNPC é:',o:['Obrigatória em qualquer hipótese para nomeação judicial','Preferencial, mas não requisito absoluto para nomeação judicial','Dispensada apenas para auditores','Substituta do registro no CRC'],a:1,e:'O CRC regular é essencial. O CNPC é cadastro importante e preferencial, mas não substitui o CRC.'},
+{q:'A Certidão de Regularidade Profissional deve ser anexada:',o:['Apenas ao final do processo','Na primeira manifestação e no laudo ou parecer','Somente quando solicitada pela parte','Apenas pelo juiz'],a:1,e:'A regularidade profissional deve ser comprovada na primeira manifestação nos autos e na entrega do laudo ou parecer.'},
+{q:'Impedimento do perito está relacionado a:',o:['Fatos objetivos','Preferências pessoais sem relevância','Somente falta de experiência','Apenas atraso na entrega do laudo'],a:0,e:'Impedimento decorre de fatos concretos e objetivos que comprometem a atuação.'},
+{q:'Suspeição do perito está mais ligada a:',o:['Fatos objetivos sempre documentados','Situações subjetivas de parcialidade','Falta de CRC','Ausência de quesitos'],a:1,e:'Suspeição envolve parcialidade, como amizade íntima, inimizade ou aconselhamento.'},
+{q:'Amizade íntima com uma das partes caracteriza, em regra:',o:['Suspeição','Auditoria','Planejamento','Regularidade profissional'],a:0,e:'Amizade íntima é situação subjetiva que pode afetar imparcialidade, caracterizando suspeição.'},
+{q:'Parentesco próximo com parte do processo tende a caracterizar:',o:['Suspeição apenas subjetiva','Impedimento','Honorários suplementares','Quesito técnico'],a:1,e:'Parentesco é fato objetivo e pode configurar impedimento.'},
+{q:'Ter atuado como assistente técnico de uma das partes nos últimos anos pode gerar:',o:['Impedimento','Obrigação de auditar','Aumento automático de honorários','Dispensa de laudo'],a:0,e:'Atuação anterior como assistente técnico pode comprometer a neutralidade e configurar impedimento.'},
+{q:'O zelo profissional exige do perito:',o:['Cuidado com prazos, documentos e qualidade técnica','Defesa de uma das partes','Recebimento direto de valores','Ausência de planejamento'],a:0,e:'Zelo profissional envolve diligência, prazos, guarda documental, sigilo e qualidade.'},
+{q:'Se o perito utiliza auxiliares, a responsabilidade final pelo laudo é:',o:['Do estagiário','Do juiz','Do perito que assina','Da parte autora'],a:2,e:'O perito responde pessoalmente pelo trabalho assinado, inclusive por falhas de sua equipe.'},
+{q:'O planejamento da perícia é importante para:',o:['Eliminar a necessidade de prova','Definir metodologia, prazo, recursos e honorários','Substituir o laudo','Escolher a sentença'],a:1,e:'O planejamento organiza a execução da perícia e fundamenta prazos e honorários.'},
+{q:'Na fixação dos honorários, o perito deve considerar:',o:['Apenas sua vontade pessoal','Complexidade, tempo, volume documental e relevância','Somente o valor desejado pela parte','Apenas o número de advogados'],a:1,e:'Honorários devem ser compatíveis com a complexidade, tempo, volume de documentos e qualificação técnica.'},
+{q:'O perito do juízo pode requerer levantamento antecipado de até:',o:['10% dos honorários','25% dos honorários','50% dos honorários','100% dos honorários sempre'],a:2,e:'É possível requerer levantamento de até 50% dos honorários depositados para custear despesas.'},
+{q:'É vedado ao perito:',o:['Planejar seus trabalhos','Responder quesitos','Receber valores diretamente das partes litigantes','Apresentar laudo'],a:2,e:'O perito não deve receber diretamente das partes; o pagamento deve ocorrer nos autos.'},
+{q:'Se o laudo for considerado deficiente ou inconclusivo, o juiz poderá:',o:['Aumentar obrigatoriamente os honorários','Reduzir ou determinar devolução de honorários','Extinguir o CRC do perito','Proibir qualquer esclarecimento'],a:1,e:'Trabalho deficiente pode gerar redução ou devolução dos honorários.'},
+{q:'Quesitos são:',o:['Perguntas técnicas formuladas para resposta pericial','Recibos de honorários','Partes do balanço patrimonial','Notas de auditoria'],a:0,e:'Quesitos são perguntas do juiz ou das partes, respondidas tecnicamente pelo perito.'},
+{q:'Quesitos suplementares são:',o:['Perguntas adicionais posteriores','Quesitos proibidos','Honorários pagos diretamente','Termos ofensivos'],a:0,e:'Quesitos suplementares complementam ou aprofundam pontos do laudo.'},
+{q:'Após apresentar o laudo, o perito pode ser chamado para:',o:['Dar sentença','Prestar esclarecimentos','Atuar como advogado','Reescrever obrigatoriamente a contabilidade'],a:1,e:'O perito pode prestar esclarecimentos sobre pontos questionados do laudo.'},
+{q:'Ao sofrer ofensas nos autos, o perito pode requerer:',o:['O riscamento das expressões ofensivas','A extinção automática do processo','O pagamento em dobro','A dispensa de CRC'],a:0,e:'O perito pode pedir ao juiz que mande riscar palavras ou expressões ofensivas.'},
+{q:'O pedido de riscamento de palavras ofensivas impede outras medidas?',o:['Sim, impede todas','Não impede medidas administrativas, civis ou criminais','Impede apenas a esfera criminal','Impede apenas a esfera ética'],a:1,e:'O riscamento no processo não impede outras providências cabíveis.'},
+{q:'O perito do juízo deve atuar com:',o:['Parcialidade favorável ao autor','Imparcialidade e independência','Subordinação ao assistente técnico','Interesse no resultado'],a:1,e:'Como auxiliar da Justiça, o perito deve manter imparcialidade e independência.'},
+{q:'A perícia contábil é necessária quando:',o:['O fato depende de conhecimento técnico contábil','Sempre que houver lucro','Somente em empresas públicas','A demonstração estiver publicada'],a:0,e:'A perícia é adequada quando a solução depende de conhecimento técnico ou científico.'},
+{q:'O assistente técnico:',o:['É nomeado pelo juiz','É contratado pela parte','Não pode emitir parecer','Substitui o perito oficial'],a:1,e:'O assistente técnico é indicado e contratado por uma das partes.'},
+{q:'O perito arbitral atua:',o:['No procedimento de arbitragem','Somente no CRC','Apenas na auditoria independente','Na escrituração mensal'],a:0,e:'Perito arbitral é nomeado no âmbito de procedimento arbitral.'},
+{q:'O perito oficial normalmente é:',o:['Servidor investido legalmente na função','Contratado pela parte autora','Nomeado apenas por empresa privada','Aluno de contabilidade'],a:0,e:'Perito oficial é servidor ou agente investido por lei para atuar em perícia oficial.'},
+{q:'A prova pericial contábil serve para:',o:['Auxiliar a decisão com elementos técnicos','Substituir a lei','Eliminar o contraditório','Garantir vitória de uma parte'],a:0,e:'A perícia fornece elementos técnicos para auxiliar a autoridade competente.'},
+{q:'O laudo pericial deve conter:',o:['Apenas opinião sem fundamento','Metodologia, respostas aos quesitos e conclusão','Somente propaganda profissional','A sentença do juiz'],a:1,e:'O laudo deve ser técnico, fundamentado e responder aos quesitos pertinentes.'},
+{q:'O sigilo profissional significa que o perito deve:',o:['Divulgar livremente dados do processo','Guardar reserva sobre informações obtidas','Enviar tudo às redes sociais','Ignorar documentos sigilosos'],a:1,e:'O perito deve preservar informações conhecidas em razão do trabalho.'},
+{q:'A atualização profissional do perito é:',o:['Desnecessária','Parte do zelo profissional','Exigida apenas do juiz','Substituta do CRC'],a:1,e:'Manter-se atualizado é elemento do zelo e da competência profissional.'},
+{q:'Receber presente de uma das partes pode gerar:',o:['Suspeição','Laudo automático','Aumento obrigatório dos honorários','Dispensa de planejamento'],a:0,e:'Recebimento de presentes pode comprometer imparcialidade, configurando suspeição.'},
+{q:'Dar conselhos prévios sobre o objeto da causa pode caracterizar:',o:['Suspeição','Demonstração contábil','Análise vertical','Depreciação'],a:0,e:'Aconselhamento prévio pode indicar comprometimento da imparcialidade.'},
+{q:'Interesse direto no resultado da causa relaciona-se a:',o:['Impedimento','Regularidade cadastral','Quesito suplementar','Rito de auditoria'],a:0,e:'Interesse direto é fato objetivo que pode impedir atuação.'},
+{q:'A imparcialidade é especialmente exigida do:',o:['Perito do juízo','Assistente técnico apenas','Advogado da parte','Aluno'],a:0,e:'O perito do juízo atua como auxiliar da Justiça e deve ser imparcial.'},
+{q:'A atuação do assistente técnico é considerada:',o:['Auxílio técnico à parte que o contratou','Atuação como juiz','Função exclusiva do Estado','Auditoria obrigatória'],a:0,e:'O assistente técnico presta apoio técnico à parte e emite parecer.'},
+{q:'Quando há necessidade de conhecimento contábil especializado, o juiz pode:',o:['Nomear perito','Dispensar toda prova','Elaborar balanço sozinho','Nomear apenas advogado'],a:0,e:'O juiz pode nomear perito para suprir conhecimento técnico necessário à prova.'},
+{q:'O perito deve tratar autoridades, partes e demais profissionais com:',o:['Urbanidade e respeito','Ironia e parcialidade','Agressividade','Sigilo seletivo'],a:0,e:'Urbanidade e respeito fazem parte do zelo profissional.'},
+{q:'A guarda de documentos pelo perito relaciona-se ao:',o:['Zelo profissional','Lucro operacional','Regime de caixa','Capital social'],a:0,e:'Cuidado e guarda adequada de documentos são deveres ligados ao zelo.'},
+{q:'A perícia contábil pode envolver matéria:',o:['Patrimonial, financeira, societária ou tributária','Apenas literária','Somente esportiva','Exclusivamente médica'],a:0,e:'A perícia contábil trata de temas ligados ao patrimônio e informações contábeis.'},
+{q:'O perito deve aceitar trabalho para o qual:',o:['Tenha competência técnica','Não possua conhecimento algum','Tenha interesse pessoal direto','Seja amigo íntimo da parte'],a:0,e:'Competência técnica é pressuposto para aceitar e executar a perícia.'},
+{q:'O trabalho pericial deve ser:',o:['Fundamentado em elementos técnicos','Baseado apenas em opinião pessoal','Sem documentação','Sempre verbal'],a:0,e:'Conclusões periciais devem ser fundamentadas em documentos, cálculos e técnica.'},
+{q:'O contraditório na perícia permite:',o:['Manifestação das partes e assistentes técnicos','Decisão secreta do perito','Proibição de quesitos','Ausência de esclarecimentos'],a:0,e:'As partes podem formular quesitos, indicar assistentes e se manifestar sobre o laudo.'},
+{q:'A expressão “auxiliar da Justiça” aplica-se ao:',o:['Perito do juízo','Assistente da parte exclusivamente','Auditor interno','Contador da empresa autora'],a:0,e:'O perito do juízo auxilia o magistrado com conhecimento técnico.'},
+{q:'A diferença essencial entre laudo e parecer é:',o:['Laudo é do perito; parecer é do assistente técnico','Ambos são sempre do juiz','Parecer substitui sentença','Laudo é só para auditoria'],a:0,e:'Laudo é elaborado pelo perito nomeado. Parecer é elaborado pelo assistente técnico.'},
+{q:'Em prova, a melhor associação é:',o:['Perícia = prova técnica; Auditoria = opinião sobre demonstrações','Perícia = escrituração; Auditoria = sentença','Perícia = orçamento; Auditoria = perícia oficial','Perícia = propaganda; Auditoria = contrato social'],a:0,e:'Esse é o resumo central: perícia produz prova técnica; auditoria emite opinião técnica.'}
+];
+
+function show(id){['home','menu','flashSec','quizSec'].forEach(x=>document.getElementById(x).classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.getElementById('nav').classList.toggle('hidden',id==='home'||id==='menu')}
+function startApp(){aluno=document.getElementById('nome').value.trim()||'Aluno';localStorage.setItem('aluno_pericia',aluno);document.getElementById('saudacao').textContent='Olá, '+aluno+'!';show('menu')}
+if(aluno){document.getElementById('nome').value=aluno;document.getElementById('saudacao').textContent='Olá, '+aluno+'!';show('menu')}
+function goMenu(){mode='menu';show('menu')}
+function openFlash(){mode='flash';show('flashSec');renderFlash()}
+function openQuiz(){mode='quiz';show('quizSec');renderQuiz()}
+function renderFlash(){document.getElementById('flash').classList.remove('flipped');document.getElementById('flashTotal').textContent=flashcards.length;document.getElementById('flashNum').textContent=flashIndex+1;document.getElementById('flashFront').textContent=flashcards[flashIndex].f;document.getElementById('flashBack').textContent=flashcards[flashIndex].b;document.getElementById('flashBar').style.width=((flashIndex+1)/flashcards.length*100)+'%';localStorage.setItem('flash_pericia',flashIndex)}
+function flipFlash(){document.getElementById('flash').classList.toggle('flipped')}
+function renderQuiz(){answered=false;if(qIndex>=quiz.length){finishQuiz();return}document.getElementById('questionCard').classList.remove('hidden');document.getElementById('explainCard').classList.add('hidden');document.getElementById('qNum').textContent=qIndex+1;document.getElementById('questionText').textContent=quiz[qIndex].q;document.getElementById('quizBar').style.width=((qIndex)/quiz.length*100)+'%';document.getElementById('acertos').textContent=ac;document.getElementById('erros').textContent=er;document.getElementById('restantes').textContent=quiz.length-qIndex;let ops='';quiz[qIndex].o.forEach((op,i)=>{ops+=`<button class="option" onclick="answer(${i},this)">${String.fromCharCode(65+i)}) ${op}</button>`});document.getElementById('options').innerHTML=ops;localStorage.setItem('quiz_pericia',qIndex);localStorage.setItem('ac_pericia',ac);localStorage.setItem('er_pericia',er)}
+function answer(i,btn){if(answered)return;answered=true;let correct=quiz[qIndex].a;document.querySelectorAll('.option').forEach((b,idx)=>{if(idx===correct)b.classList.add('correct'); if(idx===i&&idx!==correct)b.classList.add('wrong'); b.disabled=true}); if(i===correct)ac++; else er++; document.getElementById('acertos').textContent=ac;document.getElementById('erros').textContent=er;document.getElementById('explainText').innerHTML='<b>Gabarito: '+String.fromCharCode(65+correct)+'.</b><br><br>'+quiz[qIndex].e;setTimeout(()=>{document.getElementById('questionCard').classList.add('hidden');document.getElementById('explainCard').classList.remove('hidden')},900)}
+function nextQuestion(){qIndex++;renderQuiz()}
+function finishQuiz(){document.getElementById('questionCard').classList.add('hidden');document.getElementById('explainCard').classList.remove('hidden');document.getElementById('quizBar').style.width='100%';document.getElementById('explainText').innerHTML=`🏆 <b>Parabéns, ${aluno||'Aluno'}!</b><br><br>Você concluiu as 50 questões de Perícia Contábil.<br><br>✅ Acertos: ${ac}<br>❌ Erros: ${er}<br><br><a class="btn btn-green" style="display:inline-block;text-decoration:none" href="https://wa.me/${WHATS}?text=${encodeURIComponent('Professor, concluí a trilha de Perícia Contábil. Nome: '+(aluno||'Aluno')+'. Acertos: '+ac+'. Erros: '+er+'.')}" target="_blank">📤 Enviar conclusão ao professor</a>`}
+function nextItem(){if(mode==='flash'){flashIndex=(flashIndex+1)%flashcards.length;renderFlash()}else if(mode==='quiz'&&!answered){qIndex=Math.min(qIndex+1,quiz.length-1);renderQuiz()}else if(mode==='quiz'&&answered){nextQuestion()}}
+function prevItem(){if(mode==='flash'){flashIndex=Math.max(0,flashIndex-1);renderFlash()}else if(mode==='quiz'){qIndex=Math.max(0,qIndex-1);renderQuiz()}}
+function resetCurrent(){if(mode==='flash'){flashIndex=0;renderFlash()}else if(mode==='quiz'){qIndex=0;ac=0;er=0;renderQuiz()}}
+</script>
+</body>
+</html>
