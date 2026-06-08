@@ -30,9 +30,9 @@ body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(
 .input{width:100%;font-size:18px;padding:14px;border:2px solid #c7d6ef;border-radius:16px;margin:12px 0}
 .menu-grid{display:grid;grid-template-columns:1fr;gap:12px}.menu-card{padding:18px;border-radius:20px;color:white;text-align:left;min-height:120px;display:flex;flex-direction:column;justify-content:space-between}.menu-card h2{margin:0;font-size:22px}.menu-card p{margin:6px 0 0;font-size:15px}.m1{background:linear-gradient(135deg,var(--rosa),#c8307d)}.m2{background:linear-gradient(135deg,var(--verde),#087645)}
 .progress{height:12px;background:#dce6f5;border-radius:999px;overflow:hidden;margin:10px 0}.bar{height:100%;width:0;background:linear-gradient(90deg,var(--rosa),var(--verde));transition:.25s}
-.flash-wrap{perspective:1000px}.flash{height:360px;position:relative;transform-style:preserve-3d;transition:transform .5s;cursor:pointer}.flash.flipped{transform:rotateY(180deg)}.face{position:absolute;inset:0;border-radius:24px;padding:22px;backface-visibility:hidden;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;box-shadow:0 8px 22px rgba(0,0,0,.2)}
-.front{background:linear-gradient(160deg,var(--rosa),#ff8fc1);color:white}.back{background:linear-gradient(160deg,var(--verde),#52d993);color:white;transform:rotateY(180deg)}
-.face small{font-size:14px;opacity:.92}.face h2{font-size:24px;margin:10px 0}.face p{font-size:19px;line-height:1.45;margin:0}.tap{position:absolute;bottom:18px;font-size:13px;background:rgba(255,255,255,.22);padding:8px 12px;border-radius:999px}
+.flash-wrap{perspective:1000px}.flash{height:420px;position:relative;transform-style:preserve-3d;transition:transform .5s;cursor:pointer}.flash.flipped{transform:rotateY(180deg)}.face{position:absolute;inset:0;border-radius:24px;padding:30px;backface-visibility:hidden;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;box-shadow:0 8px 22px rgba(0,0,0,.2)}
+.front{background:linear-gradient(160deg,var(--rosa),#ff8fc1);color:#000000}.back{background:linear-gradient(160deg,var(--verde),#52d993);color:#000000;transform:rotateY(180deg)}
+.face small{font-size:14px;opacity:.92}.face h2{font-size:32px;margin:10px 0;font-weight:800;color:#000000}.face p{font-size:24px;line-height:1.6;margin:0;font-weight:700;color:#000000}.tap{position:absolute;bottom:18px;font-size:14px;background:rgba(255,255,255,.38);color:#000000;font-weight:bold;padding:8px 12px;border-radius:999px}
 .q-title{font-size:18px;font-weight:bold;color:var(--azul);margin-bottom:8px}.question{font-size:19px;line-height:1.45;font-weight:bold}.option{width:100%;text-align:left;background:#f4f7fb;border:2px solid #dce6f5;border-radius:16px;padding:13px;margin:8px 0;font-size:16px;cursor:pointer}.option.correct{background:#d9fbe9;border-color:var(--verde)}.option.wrong{background:#ffe1e1;border-color:var(--vermelho)}.explanation{background:#f6fff9;border-left:6px solid var(--verde);border-radius:16px;padding:14px;font-size:17px;line-height:1.45}.mini{font-size:14px;color:#526070}.footer-nav{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid #dce6f5;padding:10px;box-shadow:0 -5px 18px rgba(0,0,0,.12)}.footer-inner{max-width:520px;margin:0 auto;display:flex;gap:8px;justify-content:center}.footer-inner .btn{flex:1;padding:12px 8px;font-size:14px}.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}.stat{background:#eef4ff;border-radius:14px;padding:12px;text-align:center;font-weight:bold;color:var(--azul)}
 </style>
 </head>
@@ -49,7 +49,7 @@ body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(
   </section>
 
   <section id="menu" class="hidden">
-    <div class="card center"><h2 id="saudacao">Bem-vindo!</h2><span class="badge" id="resumoProgresso">Progresso salvo automaticamente</span></div>
+    <div class="card center"><h2 id="saudacao"></h2><span class="badge" id="resumoProgresso">Progresso salvo automaticamente</span></div>
     <div class="menu-grid">
       <div class="menu-card m1" onclick="openFlash()"><div><h2>🌸 Flashcards</h2><p>Frente rosa e verso verde com os principais pontos de Perícia.</p></div><button class="btn btn-light">Estudar teoria</button></div>
       <div class="menu-card m2" onclick="openQuiz()"><div><h2>✅ Quiz 50 questões</h2><p>Uma tela com questão e a próxima com explicação comentada.</p></div><button class="btn btn-light">Responder quiz</button></div>
@@ -58,7 +58,7 @@ body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(
 
   <section id="flashSec" class="hidden">
     <div class="card"><div class="q-title">Flashcard <span id="flashNum"></span>/<span id="flashTotal"></span></div><div class="progress"><div id="flashBar" class="bar"></div></div></div>
-    <div class="flash-wrap"><div id="flash" class="flash" onclick="flipFlash()"><div class="face front"><small>FRENTE</small><h2 id="flashFront"></h2><span class="tap">Toque para virar</span></div><div class="face back"><small>VERSO</small><p id="flashBack"></p><span class="tap">Toque para voltar</span></div></div></div>
+    <div class="flash-wrap"><div id="flash" class="flash" onclick="flipFlash()"><div class="face front"><h2 id="flashFront"></h2><span class="tap">Toque para virar</span></div><div class="face back"><p id="flashBack"></p><span class="tap">Toque para voltar</span></div></div></div>
   </section>
 
   <section id="quizSec" class="hidden">
@@ -162,8 +162,8 @@ const quiz=[
 ];
 
 function show(id){['home','menu','flashSec','quizSec'].forEach(x=>document.getElementById(x).classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.getElementById('nav').classList.toggle('hidden',id==='home'||id==='menu')}
-function startApp(){aluno=document.getElementById('nome').value.trim()||'Aluno';localStorage.setItem('aluno_pericia',aluno);document.getElementById('saudacao').textContent='Olá, '+aluno+'!';show('menu')}
-if(aluno){document.getElementById('nome').value=aluno;document.getElementById('saudacao').textContent='Olá, '+aluno+'!';show('menu')}
+function startApp(){aluno=document.getElementById('nome').value.trim()||'Aluno';localStorage.setItem('aluno_pericia',aluno);document.getElementById('saudacao').textContent='';show('menu')}
+if(aluno){document.getElementById('nome').value=aluno;document.getElementById('saudacao').textContent='';show('menu')}
 function goMenu(){mode='menu';show('menu')}
 function openFlash(){mode='flash';show('flashSec');renderFlash()}
 function openQuiz(){mode='quiz';show('quizSec');renderQuiz()}
